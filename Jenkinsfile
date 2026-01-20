@@ -1,9 +1,12 @@
 pipeline {
     agent any
+
     tools {
         maven 'maven-3.9.12'
     }
+
     stages {
+
         stage('Test') {
             steps {
                 sh 'mvn -f java-app/pom.xml test'
@@ -14,6 +17,7 @@ pipeline {
                 }
             }
         }
+
         stage('Build') {
             steps {
                 sh 'mvn -f java-app/pom.xml -B -DskipTests clean package'
@@ -25,9 +29,13 @@ pipeline {
                 }
             }
         }
-	stage ('Run Jar') {
+
+        stage('Run Jar') {
             steps {
                 sh 'java -jar java-app/target/*.jar'
             }
+        }
+
     }
 }
+
